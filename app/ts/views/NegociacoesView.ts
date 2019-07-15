@@ -1,6 +1,6 @@
 //Importando dependencia da Classe 'View'
 import { View } from './View';
-import { Negociacoes } from '../models/Negociacoes';
+import { Negociacoes } from '../models/index';
 
 //Passo o tipo que eu quero que seja herdado em 'View'
 export class NegociacoesView extends View<Negociacoes>{
