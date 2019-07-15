@@ -4,9 +4,9 @@ class NegociacaoController {
         this._negociacoes = new Negociacoes(); //Não preciso passar o tipo, pq ele adc o tipo de acordo com o tipo do que eu estou atribuindo para ele.. ou seja 'Negociacoes'
         this._negociacoesView = new NegociacoesView('#negociacoesView');
         this._mensagemView = new MensagemView('#mensagemView');
-        this._inputData = document.querySelector('#data'); //id do input no formulário
-        this._inputQuantidade = document.querySelector('#quantidade'); //id do input no formulário
-        this._inputValor = document.querySelector('#valor'); //id do input no formulário
+        this._inputData = $('#data'); //id do input no formulário
+        this._inputQuantidade = $('#quantidade'); //id do input no formulário
+        this._inputValor = $('#valor'); //id do input no formulário
         this._negociacoesView.update(this._negociacoes);
     }
     adiciona(event) {
@@ -14,8 +14,8 @@ class NegociacaoController {
         const negociacao = new Negociacao(
         //Date aceita uma string com '2019,04,07' porém está vindo com '2019-04-07'
         //Por isso é feito o replace, de - para ,
-        new Date(this._inputData.value.replace(/-/g, ',')), parseInt(this._inputQuantidade.value), //Converto para INT
-        parseFloat(this._inputValor.value) //Converto para FLOAT
+        new Date(this._inputData.val().replace(/-/g, ',')), parseInt(this._inputQuantidade.val()), //Converto para INT
+        parseFloat(this._inputValor.val()) //Converto para FLOAT
         );
         this._negociacoes.adiciona(negociacao);
         this._negociacoesView.update(this._negociacoes);
