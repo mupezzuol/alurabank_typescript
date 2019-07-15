@@ -5,7 +5,7 @@ class NegociacaoController{
     private _inputQuantidade: HTMLInputElement;
     private _inputValor: HTMLInputElement;
 
-    
+
     //Fazendo CAST do tipo <HTMLInputElement> ->> Estou dando ctz que será retornado valores de input, não de TAG's
     constructor(){
         this._inputData = <HTMLInputElement>document.querySelector('#data');//id do input no formulário
@@ -18,9 +18,11 @@ class NegociacaoController{
         event.preventDefault();//Não atualizar a página depois de submeter o formulário
 
         const negociacao = new Negociacao(
-            this._inputData.value,
-            this._inputQuantidade.value,
-            this._inputValor.value
+            //Date aceita uma string com '2019,04,07' porém está vindo com '2019-04-07'
+            //Por isso é feito o replace, de - para ,
+            new Date(this._inputData.value.replace(/-/g, ',')), 
+            parseInt(this._inputQuantidade.value), //Converto para INT
+            parseFloat(this._inputValor.value) //Converto para FLOAT
         );
 
         console.log(negociacao);
