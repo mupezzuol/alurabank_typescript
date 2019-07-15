@@ -16,7 +16,7 @@ class NegociacaoController{
 
     adiciona(event: Event){
         event.preventDefault();//Não atualizar a página depois de submeter o formulário
-
+        
         const negociacao = new Negociacao(
             //Date aceita uma string com '2019,04,07' porém está vindo com '2019-04-07'
             //Por isso é feito o replace, de - para ,
