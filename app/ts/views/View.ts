@@ -8,13 +8,23 @@ export abstract class View<T> {
 
     //protected -> Somente membros da propria classe e seus filhos podem acessar
     private _elemento: JQuery;//Precisa ser qualquer coisa para aceitar o jQuery
+    private _escapar: boolean;
 
-    constructor(seletor: string) {
+    //Parametro com '?' é opcional na chamada do construtor e se usado deve ser os últimos na assinatura do método
+    constructor(seletor: string, escapar?: boolean) {
         this._elemento = $(seletor);
+        this._escapar = escapar;
     }
 
     update(model: T) {
-        this._elemento.html(this.template(model));
+        let template = this.template(model);
+
+        if (this._escapar){
+            //Retira códigos que tem tag 'script' em nosso template
+            template = template.replace(/<script>[\s\S]*?<\/script>/, '');
+        }
+
+        this._elemento.html(template);
     }
 
     //Método Abstrato -> Quem herdar essa classe DEVERÁ OBRIGATORIAMENTE implementar esse método
