@@ -11,9 +11,9 @@ export abstract class View<T> {
     private _escapar: boolean;
 
     //Parametro com '?' é opcional na chamada do construtor e se usado deve ser os últimos na assinatura do método
-    constructor(seletor: string, escapar?: boolean) {
+    constructor(seletor: string, escapar: boolean = false) {
         this._elemento = $(seletor);
-        this._escapar = escapar;
+        this._escapar = escapar;//Seto como padrão 'false' pois estamos usando o 'strictNullChecks' para validar null e undefined
     }
 
     update(model: T) {

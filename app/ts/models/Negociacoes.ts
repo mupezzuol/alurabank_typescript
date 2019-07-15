@@ -13,7 +13,8 @@ export class Negociacoes{
 
     //Tipando o retorno do método é uma boa prática, conseguimos capturar vários erros e manter segurança no uso dos métodos
     paraArray(): Negociacao[]{
-        return [].concat(this._negociacoes);//Retorno uma cópia da instancia, para que ninguém possa alterar o valor o Array
+        //Usando 'as Negociacao[]' por conta da config de 'strictNullChecks' para validar null e undefined
+        return ([] as Negociacao[]).concat(this._negociacoes);//Retorno uma cópia da instancia, para que ninguém possa alterar o valor o Array
     }
 
 
