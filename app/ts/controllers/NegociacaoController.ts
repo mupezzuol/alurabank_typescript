@@ -5,13 +5,14 @@ class NegociacaoController{
     private _inputQuantidade: HTMLInputElement;
     private _inputValor: HTMLInputElement;
     private _negociacoes = new Negociacoes(); //Não preciso passar o tipo, pq ele adc o tipo de acordo com o tipo do que eu estou atribuindo para ele.. ou seja 'Negociacoes'
-
+    private _negociacoesView = new NegociacoesView('#negociacoesView');
 
     //Fazendo CAST do tipo <HTMLInputElement> ->> Estou dando ctz que será retornado valores de input, não de TAG's
     constructor(){
         this._inputData = <HTMLInputElement>document.querySelector('#data');//id do input no formulário
         this._inputQuantidade = <HTMLInputElement>document.querySelector('#quantidade');//id do input no formulário
         this._inputValor = <HTMLInputElement>document.querySelector('#valor');//id do input no formulário
+        this._negociacoesView.update();
     }
 
 
