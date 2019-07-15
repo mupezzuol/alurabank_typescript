@@ -3,6 +3,7 @@ class NegociacaoController {
     constructor() {
         this._negociacoes = new Negociacoes(); //Não preciso passar o tipo, pq ele adc o tipo de acordo com o tipo do que eu estou atribuindo para ele.. ou seja 'Negociacoes'
         this._negociacoesView = new NegociacoesView('#negociacoesView');
+        this._mensagemView = new MensagemView('#mensagemView');
         this._inputData = document.querySelector('#data'); //id do input no formulário
         this._inputQuantidade = document.querySelector('#quantidade'); //id do input no formulário
         this._inputValor = document.querySelector('#valor'); //id do input no formulário
@@ -18,5 +19,6 @@ class NegociacaoController {
         );
         this._negociacoes.adiciona(negociacao);
         this._negociacoesView.update(this._negociacoes);
+        this._mensagemView.update('Negociação cadastrada com sucesso!');
     }
 }
