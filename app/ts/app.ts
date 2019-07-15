@@ -1,3 +1,5 @@
+import { NegociacaoController } from './controllers/NegociacaoController';
+
 const controller = new NegociacaoController();
 
 //Escuto um evento de SUBMIT e chamo meu método da classe Controller

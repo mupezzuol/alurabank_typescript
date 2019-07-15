@@ -1,12 +1,18 @@
-class NegociacaoController{
+//Importando todos... Todos que forem importados precisam ter 'export' em suas declarações
+import { Negociacoes } from '../models/Negociacoes';
+import { NegociacoesView } from '../views/NegociacoesView';
+import { MensagemView } from '../views/MensagemView';
+import { Negociacao } from '../models/Negociacao';
+
+export class NegociacaoController{
 
     //Quando vem do HTML/FORM é um Element o tipo que retorna, porém temos que especificar para acessar métodos mais especificos
     private _inputData: JQuery;
     private _inputQuantidade: JQuery;
     private _inputValor: JQuery;
     private _negociacoes = new Negociacoes(); //Não preciso passar o tipo, pq ele adc o tipo de acordo com o tipo do que eu estou atribuindo para ele.. ou seja 'Negociacoes'
-    private _negociacoesView = new Views.NegociacoesView('#negociacoesView');
-    private _mensagemView = new Views.MensagemView('#mensagemView');
+    private _negociacoesView = new NegociacoesView('#negociacoesView');
+    private _mensagemView = new MensagemView('#mensagemView');
 
     //Fazendo CAST do tipo <HTMLInputElement> ->> Estou dando ctz que será retornado valores de input, não de TAG's
     constructor(){
