@@ -12,7 +12,7 @@ class NegociacaoController{
         this._inputData = <HTMLInputElement>document.querySelector('#data');//id do input no formulário
         this._inputQuantidade = <HTMLInputElement>document.querySelector('#quantidade');//id do input no formulário
         this._inputValor = <HTMLInputElement>document.querySelector('#valor');//id do input no formulário
-        this._negociacoesView.update();
+        this._negociacoesView.update(this._negociacoes);
     }
 
 
@@ -28,16 +28,8 @@ class NegociacaoController{
         );
 
         this._negociacoes.adiciona(negociacao);
-        this._negociacoes.adiciona(negociacao);
-        this._negociacoes.adiciona(negociacao);
-
-        //paraArray retorna um ARRAY de Negociacao, portanto consigo utilizar o nosso forEach
-        this._negociacoes.paraArray().forEach(n => {
-            //n -> Negociacao
-            console.log(n.data);
-            console.log(n.quantidade);
-            console.log(n.valor);
-        });
+        
+        this._negociacoesView.update(this._negociacoes);
 
     }
 

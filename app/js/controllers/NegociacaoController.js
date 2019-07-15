@@ -6,7 +6,7 @@ class NegociacaoController {
         this._inputData = document.querySelector('#data'); //id do input no formulário
         this._inputQuantidade = document.querySelector('#quantidade'); //id do input no formulário
         this._inputValor = document.querySelector('#valor'); //id do input no formulário
-        this._negociacoesView.update();
+        this._negociacoesView.update(this._negociacoes);
     }
     adiciona(event) {
         event.preventDefault(); //Não atualizar a página depois de submeter o formulário
@@ -17,14 +17,6 @@ class NegociacaoController {
         parseFloat(this._inputValor.value) //Converto para FLOAT
         );
         this._negociacoes.adiciona(negociacao);
-        this._negociacoes.adiciona(negociacao);
-        this._negociacoes.adiciona(negociacao);
-        //paraArray retorna um ARRAY de Negociacao, portanto consigo utilizar o nosso forEach
-        this._negociacoes.paraArray().forEach(n => {
-            //n -> Negociacao
-            console.log(n.data);
-            console.log(n.quantidade);
-            console.log(n.valor);
-        });
+        this._negociacoesView.update(this._negociacoes);
     }
 }
