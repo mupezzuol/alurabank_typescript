@@ -1,6 +1,7 @@
 class NegociacaoController {
     //Fazendo CAST do tipo <HTMLInputElement> ->> Estou dando ctz que será retornado valores de input, não de TAG's
     constructor() {
+        this._negociacoes = new Negociacoes(); //Não preciso passar o tipo, pq ele adc o tipo de acordo com o tipo do que eu estou atribuindo para ele.. ou seja 'Negociacoes'
         this._inputData = document.querySelector('#data'); //id do input no formulário
         this._inputQuantidade = document.querySelector('#quantidade'); //id do input no formulário
         this._inputValor = document.querySelector('#valor'); //id do input no formulário
@@ -13,6 +14,15 @@ class NegociacaoController {
         new Date(this._inputData.value.replace(/-/g, ',')), parseInt(this._inputQuantidade.value), //Converto para INT
         parseFloat(this._inputValor.value) //Converto para FLOAT
         );
-        console.log(negociacao);
+        this._negociacoes.adiciona(negociacao);
+        this._negociacoes.adiciona(negociacao);
+        this._negociacoes.adiciona(negociacao);
+        //paraArray retorna um ARRAY de Negociacao, portanto consigo utilizar o nosso forEach
+        this._negociacoes.paraArray().forEach(n => {
+            //n -> Negociacao
+            console.log(n.data);
+            console.log(n.quantidade);
+            console.log(n.valor);
+        });
     }
 }

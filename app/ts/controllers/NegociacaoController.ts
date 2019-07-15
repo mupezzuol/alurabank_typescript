@@ -4,6 +4,7 @@ class NegociacaoController{
     private _inputData: HTMLInputElement;
     private _inputQuantidade: HTMLInputElement;
     private _inputValor: HTMLInputElement;
+    private _negociacoes = new Negociacoes(); //Não preciso passar o tipo, pq ele adc o tipo de acordo com o tipo do que eu estou atribuindo para ele.. ou seja 'Negociacoes'
 
 
     //Fazendo CAST do tipo <HTMLInputElement> ->> Estou dando ctz que será retornado valores de input, não de TAG's
@@ -25,7 +26,18 @@ class NegociacaoController{
             parseFloat(this._inputValor.value) //Converto para FLOAT
         );
 
-        console.log(negociacao);
+        this._negociacoes.adiciona(negociacao);
+        this._negociacoes.adiciona(negociacao);
+        this._negociacoes.adiciona(negociacao);
+
+        //paraArray retorna um ARRAY de Negociacao, portanto consigo utilizar o nosso forEach
+        this._negociacoes.paraArray().forEach(n => {
+            //n -> Negociacao
+            console.log(n.data);
+            console.log(n.quantidade);
+            console.log(n.valor);
+        });
+
     }
 
 
