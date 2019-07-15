@@ -1,12 +1,7 @@
-class MensagemView extends View{
+//Passo o tipo que eu quero que seja herdado em 'View'
+class MensagemView extends View<string>{
 
-    update(model: string): void{
-        this._elemento.innerHTML = this.template(model);
-    }
-
-
-    template(model: string): string{
-        //Monta o Elemento com a mensagem passada
+    template(model: string): string {
         return `<p class="alert alert-info">${model}</p>`;
     }
 

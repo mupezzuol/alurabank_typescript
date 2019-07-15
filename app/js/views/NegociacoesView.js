@@ -1,7 +1,5 @@
+//Passo o tipo que eu quero que seja herdado em 'View'
 class NegociacoesView extends View {
-    update(model) {
-        this._elemento.innerHTML = this.template(model);
-    }
     //Passando a lista de Negociacoes eu consigo fazer um 'map' para concatenar os resultados na tela
     template(model) {
         return `
