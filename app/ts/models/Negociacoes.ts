@@ -1,6 +1,6 @@
-import { Negociacao } from './Negociacao';
+import { Negociacao, Imprimivel } from './index';
 
-export class Negociacoes{
+export class Negociacoes extends Imprimivel{
 
     //Informando qual é o tipo do Array ->> Array<Negociacao> = []; ou da forma como está abaixo
     private _negociacoes: Negociacao[] = [];
@@ -17,6 +17,11 @@ export class Negociacoes{
         return ([] as Negociacao[]).concat(this._negociacoes);//Retorno uma cópia da instancia, para que ninguém possa alterar o valor o Array
     }
 
+    paraTexto(): void {
+
+        console.log('-- paraTexto --');
+        console.log(JSON.stringify(this._negociacoes));
+    }
 
 
 }

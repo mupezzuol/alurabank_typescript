@@ -6,6 +6,7 @@ import { logarTempoDeExecucao } from '../helpers/decorators/index';
 import { domInject, throttle } from '../helpers/decorators/index';
 import { NegociacaoParcial } from '../models/NegociacaoParcial';
 import { NegociacaoService } from '../services/index';
+import { imprime } from '../helpers/index';
 
 export class NegociacaoController {
 
@@ -47,6 +48,10 @@ export class NegociacaoController {
         );
 
         this._negociacoes.adiciona(negociacao);
+
+        //Posso um VARARGS de argumentos para essa função... Ela recebe um VARARGS (em JS é um ARRAY) e chama o método 'paraTexto' da sua classe respectiva
+        imprime(negociacao, this._negociacoes);//POLIMORFISMO nesse método, aparece os métodos da interface 'IMPRIMIVEL'
+        
         this._negociacoesView.update(this._negociacoes);
         this._mensagemView.update('Negociação cadastrada com sucesso!');
     }
