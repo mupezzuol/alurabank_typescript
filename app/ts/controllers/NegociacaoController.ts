@@ -3,10 +3,10 @@
 import { NegociacoesView, MensagemView } from '../views/index';
 import { Negociacoes, Negociacao } from '../models/index';
 import { logarTempoDeExecucao } from '../helpers/decorators/index';
-import { domInject } from '../helpers/decorators/index';
+import { domInject, throttle } from '../helpers/decorators/index';
 import { NegociacaoParcial } from '../models/NegociacaoParcial';
 
-export class NegociacaoController{
+export class NegociacaoController {
 
     //DOM Injector com Lazy Loanding para carregar os valores dos inputs quando forem acessados
     @domInject('#data')
@@ -22,26 +22,24 @@ export class NegociacaoController{
     private _mensagemView = new MensagemView('#mensagemView');
 
     //Fazendo CAST do tipo <HTMLInputElement> ->> Estou dando ctz que será retornado valores de input, não de TAG's
-    constructor(){
+    constructor() {
         this._negociacoesView.update(this._negociacoes);
     }
 
-    @logarTempoDeExecucao(true)
-    adiciona(event: Event){
-        event.preventDefault();//Não atualizar a página depois de submeter o formulário
-        
+    @throttle()
+    adiciona() {
         //Date aceita uma string com '2019,04,07' porém está vindo com '2019-04-07'
-            //Por isso é feito o replace, de - para ,
+        //Por isso é feito o replace, de - para ,
         let data = new Date(this._inputData.val().replace(/-/g, ','));
 
         //Se for VERDADE é pq NÃO é dia da semana, por isso usamos o '!'
-        if(!this._ehDiaUtil(data)) {
+        if (!this._ehDiaUtil(data)) {
             this._mensagemView.update('Somente negociações em dias úteis, por favor!');
             return;
         }
 
         const negociacao = new Negociacao(
-            data, 
+            data,
             parseInt(this._inputQuantidade.val()), //Converto para INT
             parseFloat(this._inputValor.val()) //Converto para FLOAT
         );
@@ -51,11 +49,11 @@ export class NegociacaoController{
         this._mensagemView.update('Negociação cadastrada com sucesso!');
     }
 
-
-    importaDados(){
+    @throttle()
+    importaDados() {
         function isOK(res: Response) {
 
-            if(res.ok) {
+            if (res.ok) {
                 return res;
             } else {
                 throw new Error(res.statusText);
@@ -71,7 +69,7 @@ export class NegociacaoController{
                     .forEach(negociacao => this._negociacoes.adiciona(negociacao));
                 this._negociacoesView.update(this._negociacoes);
             })
-            .catch(err => console.log(err.message)); 
+            .catch(err => console.log(err.message));
     }
 
 
@@ -89,8 +87,8 @@ enum DiaDaSemana {
     Domingo,
     Segunda,
     Terca,
-    Quarta, 
-    Quinta, 
-    Sexta, 
-    Sabado, 
+    Quarta,
+    Quinta,
+    Sexta,
+    Sabado,
 }
