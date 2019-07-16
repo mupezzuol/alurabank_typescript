@@ -51,7 +51,7 @@ export class NegociacaoController {
 
         //Posso um VARARGS de argumentos para essa função... Ela recebe um VARARGS (em JS é um ARRAY) e chama o método 'paraTexto' da sua classe respectiva
         imprime(negociacao, this._negociacoes);//POLIMORFISMO nesse método, aparece os métodos da interface 'IMPRIMIVEL'
-        
+
         this._negociacoesView.update(this._negociacoes);
         this._mensagemView.update('Negociação cadastrada com sucesso!');
     }
@@ -61,7 +61,7 @@ export class NegociacaoController {
 
         //Função que valida se a resposta foi OK
         function isOk(res: Response) {
-            if(res.ok) {
+            if (res.ok) {
                 return res;
             } else {
                 throw new Error(res.statusText);
@@ -71,12 +71,23 @@ export class NegociacaoController {
         //Chamo service que retorna uma PROMISE para tratarmos usamos 'THEN'
         this._service
             .obterNegociacoes(res => {
-                if(res.ok) return res;
-                throw new Error(res.statusText);
+                if (res.ok) {
+                    return res;
+                } else {
+                    throw new Error(res.statusText);
+                }
             })
-            .then(negociacoes => {
-                negociacoes.forEach(negociacao => 
-                    this._negociacoes.adiciona(negociacao));
+            .then(negociacoesParaImportar => {
+
+                const negociacoesJaImportadas = this._negociacoes.paraArray();
+
+                negociacoesParaImportar
+                    .filter(negociacao =>
+                        !negociacoesJaImportadas.some(jaImportada =>
+                            negociacao.ehIgual(jaImportada)))
+                    .forEach(negociacao =>
+                        this._negociacoes.adiciona(negociacao));
+
                 this._negociacoesView.update(this._negociacoes);
             });
     }
