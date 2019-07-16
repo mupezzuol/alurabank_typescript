@@ -2,7 +2,7 @@ import { NegociacaoParcial, Negociacao } from '../models/index';
 
 export class NegociacaoService {
 
-    obterNegociacoes(handler: Function): Promise<Negociacao[]> {
+    obterNegociacoes(handler: ResponseHandler): Promise<Negociacao[]> {
 
         return fetch('http://localhost:8080/dados')
             .then(res => handler(res))
@@ -13,4 +13,10 @@ export class NegociacaoService {
             .catch(err => console.log(err));
 
     }
+}
+
+//Defino o tipo de parametro e retorno de alguns métodos atráves das interfaces do TS
+export interface ResponseHandler {
+
+    (res: Response): Response
 }

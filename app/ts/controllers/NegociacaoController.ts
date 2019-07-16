@@ -65,12 +65,15 @@ export class NegociacaoController {
 
         //Chamo service que retorna uma PROMISE para tratarmos usamos 'THEN'
         this._service
-            .obterNegociacoes(isOk)
+            .obterNegociacoes(res => {
+                if(res.ok) return res;
+                throw new Error(res.statusText);
+            })
             .then(negociacoes => {
                 negociacoes.forEach(negociacao => 
                     this._negociacoes.adiciona(negociacao));
                 this._negociacoesView.update(this._negociacoes);
-            });  
+            });
     }
 
 
