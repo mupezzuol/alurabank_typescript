@@ -1,7 +1,6 @@
-import { Negociacao, Imprimivel } from './index';
-import { Igualavel } from './Igualavel';
+import { Negociacao, MeuObjeto } from '../models/index';
 
-export class Negociacoes implements Imprimivel, Igualavel<Negociacoes>{
+export class Negociacoes implements MeuObjeto<Negociacoes>{
 
     //Informando qual é o tipo do Array ->> Array<Negociacao> = []; ou da forma como está abaixo
     private _negociacoes: Negociacao[] = [];

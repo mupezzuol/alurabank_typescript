@@ -1,6 +1,6 @@
-import { Imprimivel, Igualavel } from './index';
+import { MeuObjeto } from '../models/index';
 
-export class Negociacao implements Imprimivel, Igualavel<Negociacao>{
+export class Negociacao implements MeuObjeto<Negociacao>{
 
     //TS -> Forma simplificada de criar ATRIBUTOS + CONSTRUCTOR
     constructor(readonly data: Date, readonly quantidade: number,  readonly valor: number){
