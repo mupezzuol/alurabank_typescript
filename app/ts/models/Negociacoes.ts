@@ -1,6 +1,6 @@
 import { Negociacao, Imprimivel } from './index';
 
-export class Negociacoes extends Imprimivel{
+export class Negociacoes implements Imprimivel{
 
     //Informando qual é o tipo do Array ->> Array<Negociacao> = []; ou da forma como está abaixo
     private _negociacoes: Negociacao[] = [];

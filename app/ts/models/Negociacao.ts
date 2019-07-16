@@ -1,6 +1,6 @@
 import { Imprimivel } from './index';
 
-export class Negociacao extends Imprimivel{
+export class Negociacao implements Imprimivel{
     /*
     private _data: Date;
     private _quantidade: number; //number é INT e FLOAT/DOUBLE
@@ -14,7 +14,7 @@ export class Negociacao extends Imprimivel{
 
     //TS -> Forma simplificada de criar ATRIBUTOS + CONSTRUCTOR
     constructor(readonly data: Date, readonly quantidade: number,  readonly valor: number){
-        super();//Construtor da SUPER
+        
     }
 
     get volume() {
