@@ -5,6 +5,7 @@ import { Negociacoes, Negociacao } from '../models/index';
 import { logarTempoDeExecucao } from '../helpers/decorators/index';
 import { domInject, throttle } from '../helpers/decorators/index';
 import { NegociacaoParcial } from '../models/NegociacaoParcial';
+import { NegociacaoService } from '../services/index';
 
 export class NegociacaoController {
 
@@ -20,6 +21,7 @@ export class NegociacaoController {
     private _negociacoes = new Negociacoes(); //Não preciso passar o tipo, pq ele adc o tipo de acordo com o tipo do que eu estou atribuindo para ele.. ou seja 'Negociacoes'
     private _negociacoesView = new NegociacoesView('#negociacoesView');
     private _mensagemView = new MensagemView('#mensagemView');
+    private _service = new NegociacaoService();
 
     //Fazendo CAST do tipo <HTMLInputElement> ->> Estou dando ctz que será retornado valores de input, não de TAG's
     constructor() {
@@ -51,25 +53,24 @@ export class NegociacaoController {
 
     @throttle()
     importaDados() {
-        function isOK(res: Response) {
 
-            if (res.ok) {
+        //Função que valida se a resposta foi OK
+        function isOk(res: Response) {
+            if(res.ok) {
                 return res;
             } else {
                 throw new Error(res.statusText);
             }
         }
 
-        fetch('http://localhost:8080/dados')
-            .then(res => isOK(res))
-            .then(res => res.json())
-            .then((dados: NegociacaoParcial[]) => {
-                dados
-                    .map(dado => new Negociacao(new Date(), dado.vezes, dado.montante))
-                    .forEach(negociacao => this._negociacoes.adiciona(negociacao));
+        //Chamo service que retorna uma PROMISE para tratarmos usamos 'THEN'
+        this._service
+            .obterNegociacoes(isOk)
+            .then(negociacoes => {
+                negociacoes.forEach(negociacao => 
+                    this._negociacoes.adiciona(negociacao));
                 this._negociacoesView.update(this._negociacoes);
-            })
-            .catch(err => console.log(err.message));
+            });  
     }
 
 
