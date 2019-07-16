@@ -51,6 +51,11 @@ export class NegociacaoController{
     }
 
 
+    importaDados(){
+        alert('Importanto dados...');
+    }
+
+
     //Se a data NÃO FOR IGUAL a Sábado nem Domingo ele retorna TRUE
     private _ehDiaUtil(data: Date) {
         return data.getDay() != DiaDaSemana.Sabado && data.getDay() != DiaDaSemana.Domingo;

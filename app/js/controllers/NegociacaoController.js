@@ -41,6 +41,9 @@ System.register(["../views/index", "../models/index", "../helpers/decorators/ind
                     this._negociacoesView.update(this._negociacoes);
                     this._mensagemView.update('Negociação cadastrada com sucesso!');
                 }
+                importaDados() {
+                    alert('Importanto dados...');
+                }
                 _ehDiaUtil(data) {
                     return data.getDay() != DiaDaSemana.Sabado && data.getDay() != DiaDaSemana.Domingo;
                 }
