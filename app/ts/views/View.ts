@@ -4,6 +4,9 @@
 
 //Usando namespace para facilitar a utilização na hora de criar instancias
 //Eu chamo os EXPORT que está dentro de VIEWS
+
+import { logarTempoDeExecucao } from '../helpers/decorators/index';
+
 export abstract class View<T> {
 
     //protected -> Somente membros da propria classe e seus filhos podem acessar
@@ -16,6 +19,7 @@ export abstract class View<T> {
         this._escapar = escapar;//Seto como padrão 'false' pois estamos usando o 'strictNullChecks' para validar null e undefined
     }
 
+    @logarTempoDeExecucao(true)
     update(model: T) {
         let template = this.template(model);
 

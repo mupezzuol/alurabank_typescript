@@ -2,6 +2,7 @@
 //Crio um index para que todas as importações peguem as exportações desses arquivos index
 import { NegociacoesView, MensagemView } from '../views/index';
 import { Negociacoes, Negociacao } from '../models/index';
+import { logarTempoDeExecucao } from '../helpers/decorators/index';
 
 export class NegociacaoController{
 
@@ -21,7 +22,7 @@ export class NegociacaoController{
         this._negociacoesView.update(this._negociacoes);
     }
 
-
+    @logarTempoDeExecucao(true)
     adiciona(event: Event){
         event.preventDefault();//Não atualizar a página depois de submeter o formulário
         
