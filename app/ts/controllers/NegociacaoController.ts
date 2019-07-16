@@ -3,12 +3,18 @@
 import { NegociacoesView, MensagemView } from '../views/index';
 import { Negociacoes, Negociacao } from '../models/index';
 import { logarTempoDeExecucao } from '../helpers/decorators/index';
+import { domInject } from '../helpers/decorators/index';
 
 export class NegociacaoController{
 
-    //Quando vem do HTML/FORM é um Element o tipo que retorna, porém temos que especificar para acessar métodos mais especificos
+    //DOM Injector com Lazy Loanding para carregar os valores dos inputs quando forem acessados
+    @domInject('#data')
     private _inputData: JQuery;
+
+    @domInject('#data')
     private _inputQuantidade: JQuery;
+
+    @domInject('#data')
     private _inputValor: JQuery;
     private _negociacoes = new Negociacoes(); //Não preciso passar o tipo, pq ele adc o tipo de acordo com o tipo do que eu estou atribuindo para ele.. ou seja 'Negociacoes'
     private _negociacoesView = new NegociacoesView('#negociacoesView');
@@ -16,9 +22,6 @@ export class NegociacaoController{
 
     //Fazendo CAST do tipo <HTMLInputElement> ->> Estou dando ctz que será retornado valores de input, não de TAG's
     constructor(){
-        this._inputData = $('#data');//id do input no formulário
-        this._inputQuantidade = $('#quantidade');//id do input no formulário
-        this._inputValor = $('#valor');//id do input no formulário
         this._negociacoesView.update(this._negociacoes);
     }
 
