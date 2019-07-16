@@ -57,44 +57,36 @@ export class NegociacaoController {
     }
 
     @throttle()
-    importaDados() {
+    async importaDados() {
 
-        //Função que valida se a resposta foi OK
-        function isOk(res: Response) {
-            if (res.ok) {
-                return res;
-            } else {
-                throw new Error(res.statusText);
-            }
+        try {
+
+           // usou await antes da chamada de this.service.obterNegociacoes()
+            const negociacoesParaImportar = await this._service
+                .obterNegociacoes(res => {
+                    if(res.ok) {
+                        return res;
+                    } else {
+                        throw new Error(res.statusText);
+                    }
+                });
+
+            //Só será executado qnd minha PROMISE for cumprida, usando o Asynx/Wait ele nos dá essa forma diferente de esperar a resposta
+            //Parece Sincrona mas está sendo assincrona
+            const negociacoesJaImportadas = this._negociacoes.paraArray();
+
+            negociacoesParaImportar
+                .filter(negociacao => 
+                    !negociacoesJaImportadas.some(jaImportada => 
+                        negociacao.ehIgual(jaImportada)))
+                .forEach(negociacao => 
+                this._negociacoes.adiciona(negociacao));
+
+            this._negociacoesView.update(this._negociacoes);
+
+        } catch(err) {
+            this._mensagemView.update(err.message);
         }
-
-        //Chamo service que retorna uma PROMISE para tratarmos usamos 'THEN'
-        this._service
-            .obterNegociacoes(res => {
-                if (res.ok) {
-                    return res;
-                } else {
-                    throw new Error(res.statusText);
-                }
-            })
-            .then(negociacoesParaImportar => {
-
-                const negociacoesJaImportadas = this._negociacoes.paraArray();
-
-                negociacoesParaImportar
-                    .filter(negociacao =>
-                        !negociacoesJaImportadas.some(jaImportada =>
-                            negociacao.ehIgual(jaImportada)))
-                    .forEach(negociacao =>
-                        this._negociacoes.adiciona(negociacao));
-
-                this._negociacoesView.update(this._negociacoes);
-            })
-            .catch(err => {
-                this._mensagemView.update(err.message);
-            });
-
-
     }
 
 
